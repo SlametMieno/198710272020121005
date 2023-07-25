@@ -5,7 +5,14 @@ class Rekrutment extends CI_Controller
 {
     public function index()
     {
-        $this->load->view('rekrutment');
+        $url = "http://103.226.55.159/json/data_rekrutmen.json";
+
+        $hasil = file_get_contents($url);
+        $data = json_encode($hasil, true);
+
+        $data['datas'] = $data['Form Responses 1'];
+
+        $this->load->view('rekrutment', $data);
     }
 
     public function getData()
@@ -14,6 +21,6 @@ class Rekrutment extends CI_Controller
 
         $data = file_get_contents($url);
         $data = json_encode($data);
-        echo $data;
+        // echo $data;
     }
 }

@@ -51,21 +51,41 @@ header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Si
             <table id="tblRekrutment" class="table table-bordered table-striped table-sm">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>NIP</th>
-                        <th>Nama Peserta</th>
-                        <th>Asal Satker</th>
+                        <th>NO</th>
+                        <th>Nama</th>
+                        <th>Nip</th>
+                        <th>Satuan Kerja</th>
                         <th>Posisi Yang Dilamar</th>
-                        <th>Aksi</th>
+                        <th>Skill</th>
+                        <th>Mobile Apps</th>
                     </tr>
                 </thead>
                 <tbody id="showdata">
+                    <?php
+                    $no = 0;
+                    foreach ($datas as $data) {
+                        $no++;
+                    ?>
+
+                        <tr>
+                            <td><?= $no++; ?></td>
+                            <td><?= (isset($data['nama'])) ? $data['nama'] : ""; ?></td>
+                            <td><?= (isset($data['nip'])) ? $data['nip'] : ""; ?></td>
+                            <td><?= (isset($data['satuan_kerja'])) ? $data['satuan_kerja'] : ""; ?></td>
+                            <td><?= (isset($data['posisi_yang_dipilih'])) ? $data['posisi_yang_dipilih'] : ""; ?></td>
+                            <td><?= (isset($data['bahasa_pemrograman_yang_dikuasai'])) ? $data['bahasa_pemrograman_yang_dikuasai'] : ""; ?></BR>
+                                <?= (isset($data['framework_bahasa_pemrograman_yang_dikuasai'])) ? $data['framework_bahasa_pemrograman_yang_dikuasai'] : ""; ?></BR>
+                                <?= (isset($data['database_yang_dikuasai'])) ? $data['database_yang_dikuasai'] : ""; ?></BR>
+                                <?= (isset($data['tools_yang_dikuasai'])) ? $data['tools_yang_dikuasai'] : ""; ?></td>
+                            <td><?= (isset($data['pernah_membuat_mobile_apps'])) ? $data['pernah_membuat_mobile_apps'] : ""; ?></td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>
     </section>
 
-    <script>
+    <!-- <script>
         $(document).ready(function() {
             showdata();
 
@@ -107,7 +127,7 @@ header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Si
                 });
             };
         });
-    </script>
+    </script> -->
 
     <script>
         $(function() {
