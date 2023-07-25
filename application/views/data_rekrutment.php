@@ -64,7 +64,7 @@ header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Si
                 <tbody id="showdata">
                     <?php
                     $no = 1;
-                    foreach ($datas as $data) {
+                    foreach ($rekrutment as $data) {
                     ?>
 
                         <tr>
@@ -78,7 +78,7 @@ header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Si
                                 <?= (isset($data['database_yang_dikuasai'])) ? $data['database_yang_dikuasai'] : ""; ?></BR>
                                 <?= (isset($data['tools_yang_dikuasai'])) ? $data['tools_yang_dikuasai'] : ""; ?></td>
                             <td><?= (isset($data['pernah_membuat_mobile_apps'])) ? $data['pernah_membuat_mobile_apps'] : ""; ?></td>
-                            <td><a href="<?= base_url('rekrut/detil/' . $data['id']); ?>">Detil</a></td>
+                            <td><a href="#!" data-toggle="modal" data-target="#detil<?= md5($data['id']); ?>">Detil</a></td>
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -86,49 +86,34 @@ header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Si
         </div>
     </section>
 
-    <!-- <script>
-        $(document).ready(function() {
-            showdata();
-
-            function showdata() {
-
-                $("#showdata").html("");
-
-                $.ajax({
-                    type: "GET",
-                    url: "<?= base_url('rekrutment/getData'); ?>",
-                    dataType: "json",
-                    success: function(data) {
-                        hasil = JSON.parse(data);
-                        alert();
-                        var nourut = 1;
-                        let idx = 0;
-                        $.each(hasil, function(index, val) {
-                            alert(val[idx].nip);
-                            var nip = val[idx].nip;
-                            var nama = val[idx].nama;
-                            var satker = val[idx].satuan_kerja;
-                            var posisi = val[idx].posisi_yang_dipilih;
-
-                            var html = `
-                                                    <tr>
-                                                        <td>${nourut}</td>
-                                                        <td>${nip}</td>
-                                                        <td>${nama}</td>
-                                                        <td>${satker}</td>
-                                                        <td>${posisi}</td>
-                                                        <td></td>
-                                                    </tr>
-                                                `;
-                            nourut = nourut + 1;
-                            idx = idx + 1;
-                            $("#showdata").append(html);
-                        })
-                    },
-                });
-            };
-        });
-    </script> -->
+    <?php foreach ($detil as $detil) : ?>
+        <div class="modal fade" id="detil<?= md5($detil['id_pendaftar']); ?>">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-info">
+                        <h6 class="modal-title"><i class="fas fa-user mr-2"></i>Detil Data Rekrutment</h6>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-2 control-label">Nilai 1 : </label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control form-control-sm" value="<?= $detil['nilai1']; ?>" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-2 control-label">Nilai 2 : </label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control form-control-sm" value="<?= $detil['nilai2']; ?>" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endforeach ?>
 
     <script>
         $(function() {

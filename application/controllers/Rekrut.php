@@ -3,23 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Rekrut extends CI_Controller
 {
-
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/userguide3/general/urls.html
-	 */
-
 	public function __construct()
 	{
 		parent::__construct();
@@ -33,15 +16,31 @@ class Rekrut extends CI_Controller
 		$json = file_get_contents($url);
 		$json = json_decode($json, true);
 
-		//print_r($json['Form Responses 1']);
-		//die();
-
 		$data = [
 			'title' => 'Beranda',
 			'datas' => $json['Form Responses 1'],
 		];
 
-
 		$this->load->view('rekrutment', $data);
+	}
+
+	public function detil($id)
+	{
+		$url_detil = "http://103.226.55.159/json/data_attribut.json";
+
+		$json_detil = file_get_contents($url_detil);
+		$json_detil = json_decode($json_detil, true);
+
+		$items = array();
+
+		foreach ($json_detil as $item) {
+			if ($item['id_pendaftar'] == $id) {
+				$items[] = $item;
+			}
+		}
+
+		$data['detil'] = $items;
+
+		$this->load->view('data_rekrutment_detil', $data);
 	}
 }
